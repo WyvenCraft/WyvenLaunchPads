@@ -31,7 +31,8 @@ public class WyvenLaunchPads extends JavaPlugin implements Listener {
         plugin = this;
 
         getServer().getPluginManager().registerEvents(new LaunchpadListener(this), this);
-
+        getServer().getPluginManager().registerEvents(this, this);
+        
         // Initialize and load launchpads
         launchpadManager = new LaunchpadManager(this);
         launchpadManager.loadLaunchpads(launchpads);
@@ -142,13 +143,6 @@ public class WyvenLaunchPads extends JavaPlugin implements Listener {
         String playerName = player.getName();
 
         if (linkingPlayers.containsKey(playerName)) {
-            // Disable linking if clicking with empty hand
-//            if (event.getItem() == null) {
-//                disableLinking(player);
-//                event.setCancelled(true);
-//                return;
-//            }
-
             String launchpadName = linkingPlayers.get(playerName);
             Launchpad pad = launchpads.get(launchpadName);
 
