@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class LaunchpadHandler {
-    final double SPEED = 1;
+    private static final double SPEED = 1;
     private final Plugin plugin;
     private final Launchpad launchpad;
     private final Location flyLocation;
@@ -90,6 +90,16 @@ public class LaunchpadHandler {
         tasks.put(player.getUniqueId(), task);
     }
 
+
+    private void moveToward(Entity player, double yC) {
+        Location loc = player.getLocation();
+        double x = loc.getX() - this.flyLocation.getX();
+        double y = loc.getY() - this.flyLocation.getY() - Math.max(yC, 0.0D);
+        double z = loc.getZ() - this.flyLocation.getZ();
+        Vector velocity = (new Vector(x, y, z)).normalize().multiply(-0.8D * SPEED);
+        player.setVelocity(velocity);
+    }
+
     public boolean isJumping(Player player) {
         return isJumping.containsKey(player.getUniqueId());
     }
@@ -101,15 +111,6 @@ public class LaunchpadHandler {
         isJumping.remove(player.getUniqueId());
         tasks.remove(player.getUniqueId());
         player.setNoDamageTicks(100);
-    }
-
-    private void moveToward(Entity player, double yC) {
-        Location loc = player.getLocation();
-        double x = loc.getX() - this.flyLocation.getX();
-        double y = loc.getY() - this.flyLocation.getY() - Math.max(yC, 0.0D);
-        double z = loc.getZ() - this.flyLocation.getZ();
-        Vector velocity = (new Vector(x, y, z)).normalize().multiply(-0.8D * SPEED);
-        player.setVelocity(velocity);
     }
 
     private void endFlight(Player player, ArmorStand armorStand) {
