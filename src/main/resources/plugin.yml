@@ -1,0 +1,9 @@
+name: WyvenLaunchPads
+version: '1.0'
+main: com.wyvencraft.WyvenLaunchPads
+api-version: '1.21'
+author: WyvenCraft
+commands:
+  launchpad:
+    description: Create and manage launchpads
+    usage: /<command> <create|link> <name>
