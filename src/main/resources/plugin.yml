@@ -1,5 +1,5 @@
-name: WyvenLaunchPads
-version: '1.0'
+name: ${project.name}
+version: ${project.version}
 main: com.wyvencraft.WyvenLaunchPads
 api-version: '1.21'
 author: WyvenCraft

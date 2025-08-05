@@ -34,8 +34,7 @@ public class LaunchpadListener implements Listener {
                 .findFirst().orElse(null);
 
         if (launchpad == null) return;
-
-        if(!launchpad.getPermission().isEmpty() && !player.hasPermission(launchpad.getPermission()))
+        if (!launchpad.getPermission().isEmpty() && !player.hasPermission(launchpad.getPermission())) return;
 
         plugin.launch(player, launchpad);
     }
