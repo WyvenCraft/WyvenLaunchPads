@@ -9,10 +9,12 @@ public class Launchpad {
     private final Location sourceLocation;
     private final Set<Location> linkedBlocks;
     private Location targetLocation;
+    private String permission;
 
-    public Launchpad(Location sourceLocation) {
+    public Launchpad(Location sourceLocation, String permission) {
         this.sourceLocation = sourceLocation;
         this.linkedBlocks = new HashSet<>();
+        this.permission = permission;
     }
 
     public void setTarget(Location targetLocation) {
@@ -41,5 +43,13 @@ public class Launchpad {
 
     public boolean hasTarget() {
         return targetLocation != null;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 }

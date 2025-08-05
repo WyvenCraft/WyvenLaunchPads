@@ -27,7 +27,6 @@ public class LaunchpadListener implements Listener {
 
         Block downBlock = to.getBlock().getRelative(BlockFace.DOWN);
         if (downBlock.getType() != Material.SLIME_BLOCK) return;
-
         if (plugin.isJumping(player)) return;
 
         Launchpad launchpad = plugin.getLaunchpads().values().stream()
@@ -35,6 +34,8 @@ public class LaunchpadListener implements Listener {
                 .findFirst().orElse(null);
 
         if (launchpad == null) return;
+
+        if(!launchpad.getPermission().isEmpty() && !player.hasPermission(launchpad.getPermission()))
 
         plugin.launch(player, launchpad);
     }

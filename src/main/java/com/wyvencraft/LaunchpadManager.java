@@ -92,7 +92,8 @@ public class LaunchpadManager {
             Location source = loadLocation(padSection.getConfigurationSection("source"));
             if (source == null) continue;
 
-            Launchpad pad = new Launchpad(source);
+            String permission = padSection.getString("permission", "");
+            Launchpad pad = new Launchpad(source, permission);
 
             // Load target location
             Location target = loadLocation(padSection.getConfigurationSection("target"));

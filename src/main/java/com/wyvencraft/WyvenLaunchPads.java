@@ -32,7 +32,7 @@ public class WyvenLaunchPads extends JavaPlugin implements Listener {
 
         getServer().getPluginManager().registerEvents(new LaunchpadListener(this), this);
         getServer().getPluginManager().registerEvents(this, this);
-        
+
         // Initialize and load launchpads
         launchpadManager = new LaunchpadManager(this);
         launchpadManager.loadLaunchpads(launchpads);
@@ -61,7 +61,7 @@ public class WyvenLaunchPads extends JavaPlugin implements Listener {
                         return true;
                     }
                     Location sourceLoc = player.getLocation();
-                    launchpads.put(args[1], new Launchpad(sourceLoc));
+                    launchpads.put(args[1], new Launchpad(sourceLoc, ""));
                     launchpadManager.saveLaunchpads(launchpads);
                     player.sendMessage("Launchpad created! Use /launchpad target <name> to set target location.");
                 }
@@ -105,6 +105,7 @@ public class WyvenLaunchPads extends JavaPlugin implements Listener {
                     // If player is already linking, disable it
                     if (linkingPlayers.containsKey(player.getName())) {
                         disableLinking(player);
+                        launchpadManager.saveLaunchpads(launchpads); // Save after setting target
                         return true;
                     }
 
@@ -119,6 +120,28 @@ public class WyvenLaunchPads extends JavaPlugin implements Listener {
                     }
                     linkingPlayers.put(player.getName(), args[1]);
                     player.sendMessage("Click slime blocks to link them to the launchpad! Use /launchpad link " + args[1] + " again to stop linking.");
+                }
+                case "setpermission" -> {
+                    if (args.length != 3) {
+                        player.sendMessage("Usage: /launchpad setpermission <name> <permission>");
+                        return true;
+                    }
+
+                    Launchpad pad = launchpads.get(args[1]);
+                    if (pad == null) {
+                        player.sendMessage("Launchpad not found!");
+                        return true;
+                    }
+
+                    String permission = args[2];
+                    if (permission.isEmpty()) {
+                        player.sendMessage("Permission cannot be empty!");
+                        return true;
+                    } else {
+                        permission = "";
+                    }
+
+                    pad.setPermission(permission);
                 }
             }
             return true;
