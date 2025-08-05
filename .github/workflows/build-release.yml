@@ -29,8 +29,9 @@ jobs:
         id: version
         run: |
           VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          NAME=$(mvn help:evaluate -Dexpression=project.name -q -DforceStdout)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "jar_name=WyvenLaunchpads-$VERSION.jar" >> $GITHUB_OUTPUT
+          echo "jar_name=$NAME-$VERSION.jar" >> $GITHUB_OUTPUT
 
       - name: Verify JAR exists
         run: |
